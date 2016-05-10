@@ -43,8 +43,10 @@
 	    				{%  for comment in comments %}
 	    					{% if message['message_id'] == comment['message_id']%}
 	    					
-	    					<p>  {{ comment['Message Author']}} <br>
-	    						{{ comment['comments']}} </p>
+	    					<h5>  {{ comment['Message Author']}} </h5>
+	    					<h6> {{ comment['created_at']}} </h6>
+	    					<p> {{ comment['comments']}} </p>
+	    					
 	    					{% endif %}
 	    				{% endfor %}
 	    			</div>

@@ -101,7 +101,7 @@ def wall_update():
 	#start mySQL select
 	postings = mysql.query_db("SELECT concat_ws(' ', users.first_name, users.last_name) as name, messages.id as message_id, messages.message, DATE_FORMAT(messages.created_at, '%M %D %Y') FROM users JOIN messages ON users.id = messages.user_id ORDER BY messages.created_at DESC")
 	
-	comments = mysql.query_db("SELECT  messages.id as message_id, comments.comments, comments.created_at, concat_ws(' ', users.first_name, users.last_name) as 'Message Author', CONCAT( users2.first_name, ' ',users2.last_name ) as 'Comment Authors' FROM messages JOIN users JOIN comments ON comments.message_id = messages.id LEFT JOIN users as users2 ON users2.id = comments.user_id GROUP BY messages.id ORDER BY comments.created_at DESC")
+	comments = mysql.query_db("SELECT  comments.message_id, comments.comments, comments.created_at, concat_ws(' ', users.first_name, users.last_name) as 'Message Author' FROM comments LEFT JOIN users ON users.id = comments.user_id")
 	print comments
 	#end select
 
