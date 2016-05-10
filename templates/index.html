@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>The Wall</title>
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/local.css') }}">
+    </head>
+    <body>
+    	<header>
+    		<div class="container">
+	    		<div class="content-lt">
+	    			<h1> patchmatch </h1>
+	    		</div>
+
+	    		<div class="content-rt">
+	    			<form action="{{url_for('login')}}" method="post" class="login">
+	    			{% with messages = get_flashed_messages(with_categories=true) %}
+		                {% if messages %}
+		                    {% for category, logmsg in messages %}
+		                        <p>{{logmsg}}</p>
+		                    {% endfor %}
+		                {% endif %}
+		            {% endwith %}
+		    		<label for="email"> Email: </label><input type="text" name="email">
+		    		<label for="password"> Password: </label><input type="password" name="password">
+		    		<input type="submit" value ="Login">
+		    	</form>
+	    		</div>
+	    	</div><!-- .container -->
+    	</header>
+    	<div id="main-content">
+	    	<div class="container">
+
+	    		<h1> Sign Up</h1>
+		    	<form action="{{ url_for('register')}}" method="post" class="register">
+		    		{% with messages = get_flashed_messages(with_categories=true) %}
+		                {% if messages %}
+		                    {% for category, regmsg in messages %}
+		                        <p>{{regmsg}}</p>
+		                    {% endfor %}
+		                {% endif %}
+		            {% endwith %}
+		    		<p><label for="first_name"> First Name: </label><input type="text" name="first_name"></p>
+		    		<p><label for="last_name"> Last Name: </label><input type="text" name="last_name"></p>
+		    		<p><label for="email"> Email: </label><input type="text" name="email"></p>
+		    		<p><label for="password"> Password: </label><input type="password" name="password"></p>
+		    		<p><label for="confirm_password"> Confirm Password: </label><input type="password" name="confirm_password"></p>
+		    		<input type="submit" value ="Create Account">
+		    	</form>
+
+		    	
+		   	</div>
+		  </div>
+    </body>
+</html>

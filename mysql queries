@@ -1,0 +1,37 @@
+mysql queries
+
+//users  
+-- create user //our own data
+INSERT INTO users (first_name, last_name, email, pass_hash, created_at, updated_at) VALUES (:firstname, :lastname, :pass_hash, NOW(), NOW())
+-- read a user //user id
+SELECT FROM users where email = request.from['email'];
+//posts queries
+
+--create a post //our data + user id
+INSERT INTO messages (message, created_at, updated_at, id ) VALUES (:message, NOW(), NOW(), current_user_id)
+--read all the posts  //nothing but we may want to join
+SELECT * FROM message;
+-- edit posts
+
+//comments
+
+--create a comment //user id, post id
+INSERT INTO comments (comments, created_at, updated_at, message_id, user_id) VALUES (:comment, NOW(), NOW())
+--read all comments -- //all comments associated with post
+SELECT * FROM comments
+
+
+//read all messages with author and associated comments and comment author
+SELECT  messages.id, messages.messages, concat_ws(' ', users.first_name, users.last_name) as 'Message Author'
+group_concat_ws(' ', comments.comment) as 'Comments', group_concat_ws(' ', users2.first_name, users2.last_name ) as 'Comment Authors'
+FROM messages
+LEFT JOIN users
+ON users.id = messages.user_id
+LEFT JOIN comments
+ON comments.message_id = messages.id
+LEFT JOIN users as users2
+ON users2.id = comments.user_id
+GROUP BY message.id
+
+ex. Message ID , Message Author,  Created, Message, Comments, Comments Author
+(for comments we are going to push comments into a list)
